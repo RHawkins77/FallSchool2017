@@ -1,0 +1,42 @@
+Ryan Hawkins
+Homework 5
+questions 5.8, 5.9, & 5.16
+
+
+
+
+5.8
+	a. Using PDF submitted with homework. The PDF 1st photo has
+	all requirements
+	up until part b.
+	b.I felt better explaining my answer for b than writing and sending in
+	PDF.
+	The ?'s I would replace with a lower number than our terminals, meaning
+	I would use at least a 0, since we are using a 1 for our terminal case
+	when we win. I was confused if we were marking all of the cases that
+	repeat, or just the first time they start repeating. I did the first
+	time, either way they would still maintain a 0.
+	c.I think the standard minimax can fail on a branch where the min is
+	grabbed, and in my case it seems like eventually you would get a
+	bad path with a possible loop, giving your minimax number the one
+	you would not be interested in or at least the not optimal path to
+	continue searching down.
+
+
+
+5.9
+	a.Possible games of tic tac toe
+		A way to think I guess would be that there is 9 possible places
+		to put a mark on the board then you would have to add each time
+		just -1 due to losing a spot from the previous placements.
+		So it would be 9!.BUT since you only need 3 in a row, and between
+		two players the fastest way would be 5 marks on the board for a
+		player to have won so you would only do 9*8*7*6*5 so about 15,000.
+
+
+5.16
+	b. You would not have to look at the 7th and 8th node due to the
+	fact that we have seen a lower number than on the other side of
+	our tree. so even if there is a lower we don't care.
+	c.negative 1 to positive 1
+
