@@ -1,18 +1,21 @@
-CC              := gcc -std=c99
-CFLAGS          := -Wall -ggdb
-CPPFLAGS        := -I./ -I/usr/X11R6/include/Xm -I/usr/X11R6/include -I/usr/include/openmotif
+CC              := gcc
+CFLAGS          := -Wall -g -ggdb 
+#CPPFLAGS        := -I./ -I/usr/include/Xm -I/usr/include/X11 -I/usr/include/openmotif
+CPPFLAGS        := -I./ -I/usr/X11R6/include/Xm -I/usr/X11R6/include -I/usr/include/openmotif -lpthread
 #LDFLAGS         := -L/usr/lib/X11R6 -lXm -lXaw -lXmu -lXt -lX11
-LDFLAGS         := -L/usr/X11R6/lib -L /usr/X11R6/LessTif/Motif1.2/lib -lXm -lxaw -lXmu -lXt -lX11 -lICE -lSM -pthread -L/usr/lib64/openmotif/
+LDFLAGS         := -L/usr/X11R6/lib -L /usr/X11R6/LessTif/Motif1.2/lib -lXm -lXmu -lXt -lX11 -lICE -lSM -pthread -L/usr/lib64/openmotif/
+#LDFLAGS         := -L/usr/X11R6/lib -L /usr/X11R6/LessTif/Motif1.2/lib -lXmu -lXt -lX11 -lICE -lSM -pthread -L/usr/lib64/openmotif/
 
 # Uncomment this next line if you'd like to compile the graphical version of the checkers server.
-CFLAGS          += -DGRAPHICS
+#CFLAGS          += -DGRAPHICS
 
-all: checkers computer
+all: checkers computer random
 checkers: graphics.o
 computer: myprog.o
 	${CC} ${CPPFLAGS} ${CFLAGS} -o $@ $^
-
+random: random.o
+	${CC} ${CPPFLAGS} ${CFLAGS} -o $@ $^
 
 .PHONY: clean
-clean:	
-	@-rm checkers computer *.o
+clean:
+	@-rm checkers random computer *.o

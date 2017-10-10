@@ -5,12 +5,15 @@
 #include <sys/types.h>
 #include <sys/times.h>
 #include <time.h>
+#include <pthread.h>
 #include "myprog.h"
  
 #ifndef CLK_TCK
 #define CLK_TCK CLOCKS_PER_SEC
 #endif
 
+int maxDepth;
+int player1;
 float SecPerMove;
 char board[8][8];
 char bestmove[12];
@@ -30,10 +33,23 @@ int jumplist[48][12];
 int numLegalMoves = 0;
 int movelist[48][12];
 
-int currBestMove = 0;
-int currBestVal = 0;
+void randomShuffleMoveList(struct State *state)
+{
+    int i;
+    for(i=0;i<state->numLegalMoves;i++)
+    {
+        int e;
+        char temp[12];
+        e = rand()%state->numLegalMoves;
+        if(i!=e) //Exchange with randomly selected other move
+        {
+            memcpy(temp,state->movelist[e], sizeof(char)*12);
+            memcpy(state->movelist[e], state->movelist[i],sizeof(char)*12);
+            memcpy(state->movelist[i],temp,sizeof(char)*12);
+        }
 
-
+    }
+}
 
 /* Print the amount of time passed since my turn began */
 void PrintTime(void)
@@ -264,12 +280,13 @@ int FindLegalMoves(struct State *state)
     return (jumpptr+numLegalMoves);
 }
 
+
 /* Employ your favorite search to find the best move here.  */
 /* This example code shows you how to call the FindLegalMoves function */
 /* and the PerformMove function */
 void FindBestMove(int player)
 {
-    int i;
+    int i; 
     struct State state; 
 
     /* Set up the current state */
@@ -279,25 +296,12 @@ void FindBestMove(int player)
 
     /* Find the legal moves for the current state */
     FindLegalMoves(&state);
-    currBestMove = rand()%state.numLegalMoves;
-    currBestVal = 100000000;
 
-    for(int x =0; x<state.numLegalMoves;x++){
-	double rval;
-	char nextBoard[8][8];
-	//prep the data
-        PerformMove(nextBoard, state.movelist[x],
-		    MoveLength(state.movelist[x]));
-	rval = minVal(nextBoard, -10000000,1000000, MaxDepth);
-	//TODO: in our if loop we just pick the first best one, we want to pick
-	//a random best one.
-	if(currBestVal<rval){
-		currBestVal=rval;
-		currBestMove=x;
-	}
-    }
-    i = currBestMove;
-    memcpy(currBestMove, state.movelist[i], MoveLength(state.movelist[i]));
+    // For now, until you write your search routine, we will just set the best move
+    // to be a random (legal) one, so that it plays a legal game of checkers.
+    // You *will* want to replace this with a more intelligent move seleciton
+    i = rand()%state.numLegalMoves;
+    memcpy(bestmove,state.movelist[i],MoveLength(state.movelist[i]));
 }
 
 /* Converts a square label to it's x,y position */
@@ -395,106 +399,10 @@ void PerformMove(char board[8][8], char move[12], int mlen)
     }
 }
 
-double minVal(char currBoard[8][8], double alpha, double beta, int depth)
-{
-    int i;
-    struct State state;
-    /* Set up the current state */
-    memcpy(state.board,currBoard,64*sizeof(char));
-    // Deal with depth limit
-    depth--;
-    if(depth<=0)
-    {
-        state.player=me;
-        return evalBoard(&state);
-    }
-    // You've gotta setup the board with the correct player
-    state.player = ((me==1)?2:1);
-    /* Find the legal moves for the current state */
-    FindLegalMoves(&state);
-    // for every legal move
-    for(i=0;i<state.numLegalMoves;i++)
-    {
-        char nextBoard[8][8];
-        double max;
-        memcpy(nextBoard,currBoard,sizeof(nextBoard));
-        PerformMove(nextBoard, state.movelist[i], MoveLength(state.movelist[i]));
-        max = maxVal(nextBoard, alpha, beta, depth);
-        if(max<beta) beta=max;
-        if(alpha>=beta) return alpha;
-    }
-    return beta;
-}
-
-double maxVal(char currBoard[8][8], double alpha, double beta, int depth)
-{
-    int i;
-    struct State state;
-    /* Set up the next state's board */
-    memcpy(state.board,currBoard,64*sizeof(char));
-    // Deal with depth limit
-    depth--;
-    if(depth<=0)
-    {
-        state.player = me;
-        return evalBoard(&state);
-    }
-    // You've gotta setup the board with the correct player,
-    state.player = me;
-
-    /* Find the legal moves for the current state */
-    FindLegalMoves(&state);
-    // for every legal move
-    for(i=0;i<state.numLegalMoves;i++)
-    {
-        char nextBoard[8][8];
-        double min;
-        memcpy(nextBoard,currBoard,sizeof(nextBoard));
-        PerformMove(nextBoard, state.movelist[i], MoveLength(state.movelist[i]));
-        min = minVal(nextBoard, alpha, beta, depth);
-        if(min>alpha) alpha = min;
-        if(alpha>=beta) return beta;
-    }
-    return alpha;
-}
-
-double evalBoard(struct State *currBoard){
-
-	double red_total = 0.0;
-	double white_total = 0.0;
-	//find ways of skipping review of empty spaces
-	//should track number of peices of red and white
-	//only calculate this on jumps
-	for(int x= 0; x<8 ; x++){
-		for(int y=0;y<8;y++){
-			if(king(currBoard->board[x][y]))//is king
-				if(color(board[x][y] ==1)){
-				       	red_total+=2;
-				}
-				else{ 
-					white_total +=2;
-				}
-			else if(piece(currBoard->board[x][y] ==1)){
-				if(color(currBoard->board[x][y] == 1))
-					red_total+=1;
-				else white_total +=1;
-			currBoard->board[x][y];
-			}
-		}
-	}
-	if(me==1){
-	       	return red_total-white_total;
-	}
-	else{
-	       	return white_total - red_total;
-	}
-
-}
-
 int main(int argc, char *argv[])
 {
     char buf[1028],move[12];
-    int len,mlen,player1;
+    int len,mlen;
 
     /* Convert command line parameters */
     SecPerMove = (float) atof(argv[1]); /* Time allotted for each move */
