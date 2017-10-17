@@ -1,0 +1,16 @@
+Ryan Hawkins
+Homework 4.1
+CS457
+
+4.1
+
+	a.Greedy Search - hill climbing search
+	b.BFS
+	c.first choice hill climbing, every time since t=0, all downward successors will be denied
+		due to probability 1
+	d.Random walk which may be considered similar if not equal to DFS.
+		The reason we can say this is we have infinite choices and have no choice but to
+		randomly grab one.
+	e.if popluation size is 1, we will have to have only one parents, or an exact match. This means
+		that we will make an exact copy of our 1 parent, meaning we should have less mutations, and
+		to get those they would be randomly choosen so random search.
