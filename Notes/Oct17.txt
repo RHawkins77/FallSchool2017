@@ -1,0 +1,20 @@
+class notes
+
+
+
+homework questions:
+
+
+Beam search
+	begins wtih any k randomly generated states. at each step, all the successors of all k states are
+	generated. If any one is a goal, the algorithm halts. Otherwise, it selects the k best successors from
+	the complete list and repeats.
+4.1-
+a.k=1 : it's a greedy search seen in previous chapter
+b.  DFS
+
+
+
+
+
+
