@@ -1,0 +1,162 @@
+
+
+#6 review pracice
+
+	-what is the performance for CEO agent
+			-maximize profit
+				-(hard to measure)
+			-make shareholders happy
+				-(might be true but very hard to measure)
+			-how much $ am I getting?
+		-WHAT YOU NEED TO DO....
+			give reasons why and how you would measure those things
+	-ENVIRONMENT
+		-give examples of what they will need
+			-need to send emails, take/make phone calls
+			-meetings with shareholders
+	-ACTUATORS
+		-way to send email
+		-way to communicate in person or over the phone
+		-authentication measurement maybe digital authentication
+		-wireless way to send thoughts (like a twitter)
+	-SENSORS
+		-direct connection to the internet and stock exchange information
+
+
+Properties of Task environment:
+	Fully vs partially observable
+		-fully
+			-the agent's sensors are able to detect all the aspects
+				that are relevant to its next choice of action.
+		-Partially
+			-cannot see all of the aspects relebant to its next action
+				choice.
+	deterministic vs non deterministic
+		-If the next state can be completely determined by the agent
+			then it is deterministic.
+				-EXAMPLE
+					-A checker board is deterministic since every single
+						move can be thought of by the agent.
+	episodic vs Sequential
+		-episodic
+			-"atomic" episodes, each of which an agent will perceive and
+				perform a single action. Each episode will be independent
+				from actions taken in previous episode.
+		Sequential
+			-Each decision can affect all the future episodes
+	static vs dynamic
+		-Dynamic
+			-If the environment is changing while the agent is thinking
+		-Static
+			-environment does not change over time
+		-Semi-Dynamic
+			-environment does not change but the agents performance does
+	discrete vs continuous
+		-Describes a state of the environment, the way time is being handled,
+		and to the percepts and action of the agent. Chess is discrete (finite
+		# of states, discrete set of actions). Taxi driving is continuous.
+	single agent vs multiagent
+		-Single
+			-acting in the environment alone
+		multi
+			-competitive,cooperative
+
+Model based reflex agent
+	-reflex agent
+		-only care about world current state then map that to an action
+	-tries to make a model that best represents the current states, given the sensors available
+	-when standing back to a wall if something falls you know it is best to move in a direction to the side
+		so that you best miss what is falling
+
+Goal based Agent
+	-you give it a goal
+		-internally it has all these plans to go complete that
+Utility based agent
+	-you have goals
+		-but you have a "cost/reward" function that lets you know the better choice.
+		-optimally giving you the best choice
+
+Chapter 3
+
+	well posed problems 66
+		1.initial state
+		2.possible actions (successor function)
+			a.State space - defined by?
+		3.Goal test
+		4.Path cost
+
+Measuring problem solving performance : 80
+	1.Completeness
+		-Always find a solution if there is one
+	2.Optimally
+		-Finds the best solution
+	3.Time complexity
+		-how long it will take
+	4.Space Complexity
+		-takes so much space
+
+
+time complexity (GRAPH IN THE BOOK GO LOOK AT IT)
+	1.Breadth-first
+	2.Uniform Cost
+		-time
+			-exponential
+		-space
+			-exponential
+	3.Depth-First
+		-time for greedy
+			-exponential
+		-space complexity for greedy
+	4.Depth-Limited
+	5.Iterative Deepening (takes a little longer than uniform)
+		-Time complexity
+			-exponential
+				-find the lowest depth solution
+		-Space
+			-linear
+
+__________________________________________________________________________________
+Criterion |   BFS  |  Uniform Cost | DFS | Depth-Lim Search | Iterative Deepening |
+----------|-----------------------------------------------------------------------|
+complete? |  yes^a |    Yes^a,b    | No  |  Yes^a           |  Yest^a,d           |
+          |        |               |     |                  |                     |
+Time      | O(b^d) |
+          |        |               |     |                  |                     |
+Space     |  O(b^d)|                O(bm)|      O(b)        |      O(bd)          |
+          |        |               |     |                  |                     |
+Optimal?  |  yes^c |      Yes      | No  |      Yes^c       |     Yes^c,d
+__________________________________________________________________________________|
+
+b = branching factor
+d = depth of shallowest solution
+m = max depth
+l = depth limit
+
+
+
+	6.Bi-directional
+
+
+A* SEARCH
+	looks alot like the sample exam
+
+CHAPTER 5
+	-alpha-beta pruning
+
+	-given tree, show which branches are pruned, show the search on the tree
+
+	-expecti-mini-max
+		-
+
+
+review question 3
+a.admissable means underestimate
+	-true
+
+b.false
+
+c.-true but not normally
+
+question guaranteed like #5
+	maze numbers will be changed
+

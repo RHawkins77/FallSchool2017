@@ -1,0 +1,5 @@
+4
+3
+bread 3
+corn 2
+bats 1

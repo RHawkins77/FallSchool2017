@@ -1,0 +1,52 @@
+Ryan Hawkins
+Class notes
+
+
+-3sat
+	-(a1, a27, a30)^
+	-(a2, a27, a95)^
+
+-Local Search
+	-will not care about search path, just the goal state
+
+	-The context
+		-must have a way to compute some objective function
+		 and means to alter the inputs to that function
+
+ROYAL ROAD
+	-imagine looking at a pyramid from above and walking the entire length in a square 	shape until you reach the to
+
+hill climbing(greedy)
+	-move a little and evaluate as you move up or take steps.
+
+hill climbing ( stochastic)
+
+
+hill climbing(first choice)
+	-repeat until
+		choose a random state
+		if it is better go to it
+
+	Simulated Annealing
+		-i have a temp, and the move I make will depend on the temperature
+		-so if temp is high the chance of making a bad move is better
+		-So for S.A.
+			-start at a high temp and slowly lower the temp
+		Think about a ping pong ball bouncing on a board with 3 holes/dips
+		in the board and we want it in a different hole, we want the deepest hole.
+		As we get the ball into the deep hole we bounce less and the chances 
+		of it bouncing out are lower
+
+Beam search(greedy)
+	Initialize a set S of k states
+	takes best move from all and uses it
+
+	Stochastic
+
+	Genetic algorithm
+	Initialize a set S of k states
+	Reapeat until _____
+		create child states by crossing over current states with probability 			______%
+		Mutate child states with some probability _____
+		Do one step of hill climb (optional)
+		Drop low value states

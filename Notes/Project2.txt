@@ -1,0 +1,21 @@
+create a bag class
+	bag needs compacity
+		maybe the current size, room left over
+	Domain =
+	things could be allowed in the bag
+	so if empty bag, means all items could go in that bad
+	all the items that could go in that bag could be represented
+	as bits.
+
+	if 3 bags we have 3 domains
+
+	item class
+		contain mask for representing itself
+
+	item object
+		name item
+		size item
+		mask of item
+		things it can bag with
+
+
