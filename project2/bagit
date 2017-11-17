@@ -1,0 +1,8 @@
+JC = javac
+
+all:
+	$(JC) Driver.java
+
+.PHONY: clean
+clean:
+	@-rm *.class
